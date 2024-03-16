@@ -1,0 +1,83 @@
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333; 
+        }
+        p {
+            font-size: 16px;
+        }
+        select, input[type="number"], input[type="submit"] {
+            padding: 12px; 
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px; 
+        }
+        input[type="submit"] {
+            background-color: #1f3a6e;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #15314b;
+        }
+
+    </style>    
+</head>
+<body>
+    <h1>S&P 500 Return Calculator</h1>
+    <form>
+        <p>Start Year And Month</p>
+        <select name="start year">
+            {% for year in years %}
+                <option value="{{ year }}" {% if year == start_year or loop.last %}selected="selected"{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+        <select name="start month">
+            {% for month in months %}
+                <option value="{{ month }}" {% if month == start_month or loop.first %}selected="selected"{% endif %}>{{ month }}</option>
+            {% endfor %}
+        </select>
+
+        <p>End Year And Month</p>
+
+        <select name="end year">
+            {% for year in years %}
+                <option value="{{ year }}" {% if year == end_year or loop.last %}selected="selected"{% endif %}>{{ year }}</option>
+            {% endfor %}
+        </select>
+        <select name="end month">
+            {% for month in months %}
+                <option value="{{ month }}" {% if month == end_month or loop.first %}selected="selected"{% endif %}>{{ month }}</option>
+            {% endfor %}
+        </select>
+
+        <p>Starting Money</p>
+        <input type="number" name="money" value="100"></input>
+
+        <input type="submit" value="Calculate" />
+
+    </form>
+
+    <h2>Results</h2>
+    <p>Nominal Price Return: {{ nominal_change }}%</p>
+    <p>Annualized CAGR: {{ nominal_cagr }}%</p>
+    <p>Money grew to: ${{ money_final }}</p>
+    <p>-------------------------------------------</p>
+    <p>Real Price Return: {{ real_change }}%</p>
+    <p>Annualized CAGR: {{ real_cagr }}%</p>
+    <p>Money grew to: ${{ real_money_final }}</p>
+    <p>-------------------------------------------</p>
+    <p>Total Real Price Return (Including Dividends): {{ total_change }}%</p>
+    <p>Annualized CAGR: {{ total_cagr }}%</p>
+    <p>Money grew to: ${{ total_money }}</p>
+
+</body>
+
+</html>
+
